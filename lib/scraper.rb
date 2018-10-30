@@ -12,6 +12,7 @@ class Scraper
   end 
   
   def theater_scraper
+    binding pry
     html = open(path)
     doc = Nokogiri::HTML(html)
     doc.css("ul li")
@@ -27,6 +28,9 @@ class Scraper
   end 
   
   def theater_movies
+    movie_name = doc.css("ul.movieListings li div.info p")[0].text.strip 
+    movie_rating_duration = doc.css("ul.movieListings li div.info p")[1].text.strip 
+    movietimes = doc.css("ul li div.showtimesWrapper ul.showtimes").text
   end 
     
   def theater_parser
