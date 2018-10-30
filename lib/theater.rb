@@ -1,2 +1,3 @@
 class Theater 
+
 end 

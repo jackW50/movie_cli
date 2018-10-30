@@ -1,2 +1,5 @@
-class Scraper 
+require 'pry'
+
+class Scraper
+  
 end 
