@@ -5,9 +5,8 @@ class Theater
   
   @@all = []
   
-  def initialize(name)
-    @name = name 
-    @movies = []
+  def initialize(attributes)
+    attributes.each {|key, value| self.send(("#{key}="), value)
     self.class.all << self 
   end 
   
@@ -15,8 +14,12 @@ class Theater
     @@all 
   end 
   
-  def self.create_from_scraper(theaters)
-    theaters.each do |theater|
+  def self.create_from_scraper(theater_hash)
+    theater_hash.each do |key, value|
+      Theater.new(value)
+    end 
+  end
+      
       
     end 
   end 

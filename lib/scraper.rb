@@ -12,11 +12,9 @@ class Scraper
   end 
   
   def theater_scraper
-    binding pry
     html = open(path)
     doc = Nokogiri::HTML(html)
     doc.css("ul.theaterList li")
-    #binding.pry
   end 
   
   def theater_hash 
@@ -26,6 +24,7 @@ class Scraper
       theaters[i][location] = theater.css("div.theaterInfo p").text.strip
       theaters[i][movies] = add_movies(theater)
     end 
+    theaters
   end 
       
   def add_movies(theater)
