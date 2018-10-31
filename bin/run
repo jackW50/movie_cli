@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby 
+
+require_relative "../config/environment"
+
+input = "http://www.movies.com/movie-times/63015-movie-times"
+
+scraper = Scraper.new(input)
+
+Theater.create_from_scraper(scraper.theater_hash)
+
+Theater.all.each {|t| puts t.name}

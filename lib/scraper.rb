@@ -20,9 +20,9 @@ class Scraper
   def theater_hash 
     theaters = {}
     theater_scraper.each_with_index do |theater, i|
-      theaters[i][name] = theater.css("div.theaterInfo h2 a").text
-      theaters[i][location] = theater.css("div.theaterInfo p").text.strip
-      theaters[i][movies] = add_movies(theater)
+      theaters = {i => {"name" => theater.css("div.theaterInfo h2 a").text}}
+      theaters = {i => {"location" => theater.css("div.theaterInfo p").text.strip}}
+      theaters = {i => {"movies" => add_movies(theater)}}
     end 
     theaters
   end 

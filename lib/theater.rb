@@ -6,7 +6,7 @@ class Theater
   @@all = []
   
   def initialize(attributes)
-    attributes.each {|key, value| self.send(("#{key}="), value)
+    attributes.each {|key, value| self.send(("#{key}="), value)}
     self.class.all << self 
   end 
   
@@ -19,9 +19,8 @@ class Theater
       Theater.new(value)
     end 
   end
-      
-      
-    end 
+  
+  def movie_converter
   end 
-
+      
 end 
