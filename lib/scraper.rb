@@ -41,7 +41,6 @@ class Scraper
     else 
       a.delete_if {|x| x == "***"}
       b = a.collect {|x| x.split("***")}
-      binding.pry
       b.each do |x|
         x[1] = x[1].gsub(/(?<=:\w{2})(?=\w)/, " ").delete "am"
       end 
