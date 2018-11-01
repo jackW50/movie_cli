@@ -26,8 +26,17 @@ class Scraper
   end 
       
   def add_movies(theater)
-    theater.css("ul.movieListings li").collect do |movie|
-      movie.css("div.info p a").text + " " + (movie.css("ul.showtimes li a").text.strip)
+    binding.pry
+    a = theater.css("ul.movieListings li").collect do |movie|
+      movie.css("div.info p a").text + "***" + (movie.css("ul.showtimes li a").text.strip)
+    end 
+    a.delete_if {|x| x == ""}
+    a.each {|x| x.split("***")
+    new_array = []
+    a.each do |movie|
+      Movie.new(movie[0], movie[1]).tap do |m|
+        new_array << m
+      end 
     end 
   end 
   
