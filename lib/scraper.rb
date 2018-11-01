@@ -25,12 +25,12 @@ class Scraper
         }
     end 
     theaters.each do |key, value|
-      value
-    theaters
+      value.delete_if {|key, value| value == ""}
+    end 
+    theaters.delete_if {|key, value| value == {}}
   end 
       
   def add_movies(theater)
-    #binding.pry
     a = theater.css("ul.movieListings li").collect do |movie|
       movie.css("div.info p a").text + "***" + (movie.css("ul.showtimes li a").text.strip)
     end
@@ -57,7 +57,6 @@ class Scraper
   end 
   
   def theater_location(theater)
-    #binding.pry
     theater.css("div.theaterInfo p").text.strip
   end 
   
