@@ -20,22 +20,22 @@ class Scraper
   def theater_hash 
     theaters = {}
     theater_scraper.each_with_index do |theater, i|
-      theaters = {
-        i => {
-          "name" => theater_name(theater), "location" => theater_location(theater), "movies" => add_movies(theater) unless nil
+      theaters[i] = {
+          "name" => theater_name(theater), "location" => theater_location(theater), "movies" => add_movies(theater) 
         }
-      }
     end 
+    theaters.each do |key, value|
+      value
     theaters
   end 
       
   def add_movies(theater)
-    binding.pry
+    #binding.pry
     a = theater.css("ul.movieListings li").collect do |movie|
       movie.css("div.info p a").text + "***" + (movie.css("ul.showtimes li a").text.strip)
     end
     if a == []
-      nil 
+      "" 
     else 
       a.delete_if {|x| x == "***"}
       b = a.collect {|x| x.split("***")}
