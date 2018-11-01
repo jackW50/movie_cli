@@ -20,7 +20,11 @@ class Scraper
   def theater_hash 
     theaters = {}
     theater_scraper.each_with_index do |theater, i|
-      theaters = {i => {"name" => theater_name(theater), "location" => theater_location(theater), "movies" => add_movies(theater)}}
+      theaters = {
+        i => {
+          "name" => theater_name(theater), "location" => theater_location(theater), "movies" => add_movies(theater) unless nil
+        }
+      }
     end 
     theaters
   end 
@@ -29,14 +33,22 @@ class Scraper
     binding.pry
     a = theater.css("ul.movieListings li").collect do |movie|
       movie.css("div.info p a").text + "***" + (movie.css("ul.showtimes li a").text.strip)
-    end 
-    a.delete_if {|x| x == ""}
-    a.each {|x| x.split("***")
-    new_array = []
-    a.each do |movie|
-      Movie.new(movie[0], movie[1]).tap do |m|
-        new_array << m
+    end
+    if a == []
+      nil 
+    else 
+      a.delete_if {|x| x == "***"}
+      b = a.collect {|x| x.split("***")}
+      b.each do |x| 
+        x[1] = x[1].gsub(/(?<=:\w{2})(?=\w)/, " ")
       end 
+      new_array = []
+      b.each do |movie|
+        Movie.new(movie[0], movie[1]).tap do |m|
+          new_array << m
+        end
+      end 
+      new_array
     end 
   end 
   

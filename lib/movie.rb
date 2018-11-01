@@ -3,7 +3,7 @@ class Movie
   
   def initialize(name, showtimes)
     @name = name 
-    @shotimes = shotimes 
+    @shotimes = showtimes 
   end 
   
  
