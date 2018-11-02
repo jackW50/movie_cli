@@ -6,5 +6,4 @@ require_relative "../config/environment"
 #site = "http://www.movies.com"
 
 
-user = Movie_Cli.new.greeting 
-user.run
+Movie_Cli.new.run

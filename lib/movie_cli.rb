@@ -1,26 +1,27 @@
 #require "movie_cli/version"
 #require "../config/environment"
-
+require 'pry'
 
 module MovieCli
   # Your code goes here...
 end
 
 class Movie_Cli 
-  #I want to interact with user and return them information
+  attr_accessor :input, :site
+  
+  def initialize
+    @site = "http://www.movies.com"
+  end 
+  
   def greeting 
     puts "Hello, sounds like you want to see a movie"
     puts "Lets see if we can help you with your search"
     puts "What is your 5 number zip code?"
-  end 
-  
-  def zip 
-    greeting
-    input = gets.strip
+    @input = gets.strip
   end 
   
   def valid_zip?
-    if zip.length == 5 #&& #make sure that greeting is numbers not letters
+    if input.length == 5 #&& #make sure that greeting is numbers not letters
       true
     else
       nil
@@ -28,12 +29,8 @@ class Movie_Cli
   end 
   
   
-  def site_interpolation(site = "http://www.movies.com", zip_code= zip)
-    if valid_zip?
-      "#{site}" + "/movie-times/" + "#{zip_code}-movie-times"
-    else 
-      nil 
-    end 
+  def site_interpolation(web_site = self.site, zip_code = self.input)
+      "#{web_site}" + "/movie-times/" + "#{zip_code}-movie-times"
   end 
   
   def scrape_info 
@@ -76,7 +73,13 @@ class Movie_Cli
   end 
   
   def run 
-    reveal_theater_info
+    greeting
+    if valid_zip? 
+      binding.pry
+      reveal_theater_info
+    else 
+      nil
+    end 
   end 
     
 end 
