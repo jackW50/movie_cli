@@ -1,43 +1,10 @@
 #!/usr/bin/env ruby 
-require 'pry'
+#require 'pry'
 
 require_relative "../config/environment"
 
-site = "http://www.movies.com"
+#site = "http://www.movies.com"
 
-puts "Hi there, sounds like you're interested in seeing a movie."
-puts "Lets see if we can help"
 
-def getting_zip
-  puts "What is your 5 number zip code?"
-  zip = gets.strip.to_i
-end 
-
-input = getting_zip
-
-def site_interpolation(input, site)
-  if input.to_s.length == 5 && input.is_a?(Integer)
-    "#{site}" + "/movie-times/" + "#{input}-movie-times" 
-  else 
-    puts "invalid zip. Please try again"
-  end 
-end 
-
-#site_interpolation(input)
-
-#site = "http://www.movies.com/movie-times/63015-movie-times"
-
-scraper = Scraper.new(site_interpolation(input, site))
-
-Theater.create_from_scraper(scraper.theater_hash)
-
-Theater.all.each do |t|
-  puts t.name
-  puts t.location
-  puts "\n"
-  t.movies.each do |movie|
-    puts movie.name
-    puts movie.showtimes
-  end 
-  puts "\n"
-end
+user = Movie_Cli.new.greeting 
+user.run

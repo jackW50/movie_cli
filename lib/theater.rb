@@ -1,4 +1,3 @@
-require 'nokogiri'
 
 class Theater
   attr_accessor :name, :location, :movies

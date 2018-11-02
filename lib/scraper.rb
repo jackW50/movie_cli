@@ -1,9 +1,9 @@
 require 'pry'
 require 'open-uri'
 require 'nokogiri'
-require 'capybara/poltergeist'
 
-# http://www.movies.com/movie-times/63015-movie-times
+
+# http://www.movies.com
 class Scraper
   attr_accessor :path 
   
@@ -19,7 +19,6 @@ class Scraper
   
   def theater_hash 
     theaters = {}
-    #binding.pry
     theater_scraper.each_with_index do |theater, i|
       theaters[i] = {
           "name" => theater_name(theater), "location" => theater_location(theater), "movies" => add_movies(theater) 
@@ -32,7 +31,6 @@ class Scraper
   end 
       
   def add_movies(theater)
-    #binding.pry
     a = theater.css("ul.movieListings li").collect do |movie|
       movie.css("div.info p a").text + "***" + (movie.css("ul.showtimes li").text.strip)
     end
