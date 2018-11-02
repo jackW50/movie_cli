@@ -30,39 +30,26 @@ class Movie_Cli
     end
   end 
   
-  
   def site_interpolation(web_site = self.site, zip_code = self.input)
       "#{web_site}" + "/movie-times/" + "#{zip_code}-movie-times"
   end 
   
   def scrape_info 
-    if site_interpolation != nil 
       Scraper.new(site_interpolation)
-    else 
-      nil
-    end 
   end 
   
   def parse_info 
-    if scrape_info != nil 
       scrape_info.theater_hash
-    else 
-      nil 
-    end 
   end 
   
   def create_theaters
-    if parse_info != nil
       Theater.create_from_scraper(parse_info)
-    else
-      nil 
-    end 
   end 
   
   def reveal_theater_info
-    if create_theaters != nil 
-      puts "HERE ARE NEARBY THEATERS AND MOVIES:"
-      puts "\n"
+    create_theaters  
+    puts "HERE ARE NEARBY THEATERS AND MOVIES:"
+    puts "\n"
       Theater.all.each_with_index do |theater, i|
         puts "THEATER #{i + 1}"
         puts theater.name
@@ -77,9 +64,6 @@ class Movie_Cli
         end 
         puts "\n\r"
       end 
-    else 
-      nil
-    end 
   end 
   
   def run 

@@ -2,8 +2,6 @@ require 'pry'
 require 'open-uri'
 require 'nokogiri'
 
-
-# http://www.movies.com
 class Scraper
   attr_accessor :path 
   
@@ -52,11 +50,12 @@ class Scraper
     end 
   end 
   
-  def theater_name(theater) 
+  def theater_name(theater)
     theater.css("div.theaterInfo h2 a").text.strip 
   end 
   
   def theater_location(theater)
+    #binding.pry
     theater.css("div.theaterInfo p").text.strip
   end 
   
