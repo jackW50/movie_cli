@@ -27,29 +27,39 @@ class Scraper
     end 
     theaters.delete_if {|key, value| value == {}}
   end 
-      
-  def add_movies(theater)
-    a = theater.css("ul.movieListings li").collect do |movie|
+  
+  def parse_movies(theater)
+    theater.css("ul.movieListings li").collect do |movie|
       movie.css("div.info p a").text + "***" + (movie.css("ul.showtimes li").text.strip)
-    end
-    if a == [] || a == nil
-      "" 
-    else 
-      a.delete_if {|x| x == "***"}
-      b = a.collect {|x| x.split("***")}
-      b.each do |x|
-        x[1] = x[1].gsub(/(?<=:\w{2})(?=\w)/, " ").delete "am"
-      end 
-      new_array = []
-      b.each do |movie|
-        Movie.new(movie[0], movie[1]).tap do |m|
-          new_array << m
-        end
-      end 
-      new_array
     end 
   end 
   
+  def add_movie_strings(theater)
+    if parse_movies(theater) == [] || nil 
+      ""
+    else 
+      movie_string_array = parse_movies(theater).delete_if {|x| x == "***"}.collect {|x| x.split("***")}
+      movie_string_array.each do |i|
+        i[1] = i[1].gsub(/(?<=:\w{2})(?=\w)/, " ").delete "am"
+      end 
+      movie_string_array
+    end 
+  end 
+  
+  def add_movies(theater)
+    movie_object_array = []
+    if add_movie_strings(theater) == ""
+      ""
+    else 
+      add_movie_strings(theater).each do |movie|
+        Movie.new(movie[0], movie[1]).tap do |m|
+          movie_object_array << m 
+        end 
+      end 
+      movie_object_array
+    end 
+  end 
+    
   def theater_name(theater)
     theater.css("div.theaterInfo h2 a").text.strip 
   end 
