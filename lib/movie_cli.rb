@@ -59,13 +59,21 @@ class Movie_Cli
   
   def reveal_theater_info
     if create_theaters != nil 
-      Theater.all.each do |theater|
-        puts theater.name 
-        puts theater.location
+      puts "HERE ARE NEARBY THEATERS AND MOVIES"
+      puts "\n"
+      Theater.all.each_with_index do |theater, i|
+        puts "THEATER #{i + 1}"
+        puts theater.name
+        puts "\n"
+        puts "ADDRESS: #{theater.location}"
+        puts "\n"
+        puts "MOVIES & SHOWTIMES"
+        puts "\n"
         theater.movies.each do |movie|
           puts movie.name
           puts movie.showtimes
         end 
+        puts "\n\r"
       end 
     else 
       nil
@@ -75,7 +83,7 @@ class Movie_Cli
   def run 
     greeting
     if valid_zip? 
-      binding.pry
+      #binding.pry
       reveal_theater_info
     else 
       nil

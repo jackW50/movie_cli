@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby 
-#require 'pry'
 
 require_relative "../config/environment"
-
-#site = "http://www.movies.com"
-
 
 Movie_Cli.new.run
