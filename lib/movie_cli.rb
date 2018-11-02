@@ -1,5 +1,4 @@
 #require "movie_cli/version"
-#require "../config/environment"
 require 'pry'
 
 module MovieCli
@@ -13,15 +12,18 @@ class Movie_Cli
     @site = "http://www.movies.com"
   end 
   
-  def greeting 
-    puts "Hello, sounds like you want to see a movie"
-    puts "Lets see if we can help you with your search"
+  def greeting
+    puts "Hello! Sounds like you want to see a movie."
+    puts "Lets see if we can help."
+  end 
+  
+  def get_zip 
     puts "What is your 5 number zip code?"
     @input = gets.strip
   end 
   
   def valid_zip?
-    if input.length == 5 #&& #make sure that greeting is numbers not letters
+    if input.length == 5 && input.match(/[0-9]{5}/)
       true
     else
       nil
@@ -59,7 +61,7 @@ class Movie_Cli
   
   def reveal_theater_info
     if create_theaters != nil 
-      puts "HERE ARE NEARBY THEATERS AND MOVIES"
+      puts "HERE ARE NEARBY THEATERS AND MOVIES:"
       puts "\n"
       Theater.all.each_with_index do |theater, i|
         puts "THEATER #{i + 1}"
@@ -81,12 +83,12 @@ class Movie_Cli
   end 
   
   def run 
-    greeting
+    get_zip
     if valid_zip? 
-      #binding.pry
       reveal_theater_info
     else 
-      nil
+      puts "Invalid Zip Code. Please Try Again."
+      run
     end 
   end 
     
