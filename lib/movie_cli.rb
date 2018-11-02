@@ -14,7 +14,7 @@ class Movie_Cli
   
   def greeting
     puts "Hello! Sounds like you want to see a movie."
-    puts "Lets see if we can help."
+    puts "Let's see if we can help."
   end 
   
   def get_zip 
