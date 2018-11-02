@@ -54,7 +54,7 @@ class Movie_Cli
   
   def create_theaters
     if parse_info != nil
-      Theater.new(parse_info)
+      Theater.create_from_scraper(parse_info)
     else
       nil 
     end 
