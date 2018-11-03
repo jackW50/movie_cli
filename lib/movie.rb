@@ -5,6 +5,4 @@ class Movie
     @name = name 
     @showtimes = showtimes 
   end 
-  
- 
 end 

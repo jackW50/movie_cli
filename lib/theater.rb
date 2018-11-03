@@ -18,5 +18,4 @@ class Theater
       Theater.new(value)
     end 
   end
-      
 end 

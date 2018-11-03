@@ -66,5 +66,4 @@ class Scraper
     
     theater_address_array.collect {|address_element| address_element.strip}.delete_if {|address_element| address_element == "Print at Home" || address_element == "MapMore info"}.join(" ")
   end 
-  
 end 

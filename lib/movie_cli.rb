@@ -1,5 +1,4 @@
 #require "movie_cli/version"
-require 'pry'
 
 module MovieCli
   # Your code goes here...
@@ -75,5 +74,4 @@ class Movie_Cli
       run
     end 
   end 
-    
 end 
