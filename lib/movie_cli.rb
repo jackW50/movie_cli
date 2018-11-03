@@ -23,7 +23,7 @@ class Movie_Cli
   end 
   
   def valid_zip?
-    if input.length == 5 && input.match(/[0-9]{5}/)
+    if input.match(/[0-9]{5}/)
       true
     else
       nil

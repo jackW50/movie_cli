@@ -52,8 +52,8 @@ class Scraper
       ""
     else 
       add_movie_strings(theater).each do |movie|
-        Movie.new(movie[0], movie[1]).tap do |m|
-          movie_object_array << m 
+        Movie.new(movie[0], movie[1]).tap do |movie_object|
+          movie_object_array << movie_object 
         end 
       end 
       movie_object_array
@@ -66,7 +66,8 @@ class Scraper
   
   def theater_location(theater)
     #binding.pry
-    theater.css("div.theaterInfo p").text.strip
+    theater_address_array = theater.css("div.theaterInfo p").text.strip.split("\r")
+    theater_address_array.collect {|address_element| address_element.strip}.delete_if {|address_element| address_element == "Print at Home" || address_element == "MapMore info"}.join(" ")
   end 
   
 end 
