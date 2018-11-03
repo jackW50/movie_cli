@@ -50,20 +50,20 @@ class Movie_Cli
     puts "\n"
     puts "HERE ARE YOUR NEARBY THEATERS AND MOVIES:"
     puts "\n"
-      Theater.all.each_with_index do |theater, i|
-        puts "THEATER #{i + 1}"
-        puts theater.name
-        puts "\n"
-        puts "ADDRESS and Info: #{theater.location}"
-        puts "\n"
-        puts "MOVIES & SHOWTIMES"
-        puts "\n"
-        theater.movies.each do |movie|
-          puts movie.name
-          puts movie.showtimes
-        end 
-        puts "\n\r"
+    Theater.all.each_with_index do |theater, i|
+      puts "THEATER #{i + 1}"
+      puts theater.name
+      puts "\n"
+      puts "ADDRESS and Info: #{theater.location}"
+      puts "\n"
+      puts "MOVIES & SHOWTIMES"
+      puts "\n"
+      theater.movies.each do |movie|
+        puts movie.name
+        puts movie.showtimes
       end 
+      puts "\n\r"
+    end 
   end 
   
   def run 
