@@ -47,6 +47,7 @@ class Movie_Cli
   
   def reveal_theater_info
     create_theaters  
+    puts "\n"
     puts "HERE ARE YOUR NEARBY THEATERS AND MOVIES:"
     puts "\n"
       Theater.all.each_with_index do |theater, i|
