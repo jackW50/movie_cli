@@ -53,7 +53,7 @@ class Movie_Cli
         puts "THEATER #{i + 1}"
         puts theater.name
         puts "\n"
-        puts "ADDRESS: #{theater.location}"
+        puts "ADDRESS and Info: #{theater.location}"
         puts "\n"
         puts "MOVIES & SHOWTIMES"
         puts "\n"
