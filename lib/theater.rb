@@ -4,9 +4,8 @@ class Theater
   
   @@all = []
   
-  def initialize(attributes)
-    attributes.each {|key, value| self.send(("#{key}="), value)}
-    self.class.all << self 
+  def initialize(attributes = nil)
+    save 
   end 
   
   def self.all 
@@ -14,8 +13,16 @@ class Theater
   end 
   
   def self.create_from_scraper(theater_hash)
-    theater_hash.each do |key, value|
-      Theater.new(value)
+    theater_hash.each do |key, theater_attributes|
+      Theater.new(theater_attributes).tap do |t|
+        theater_attributes.each do |key, value|
+          t.send(("#{key}="), value)
+        end 
+      end 
     end 
   end
+  
+  def save 
+    self.class.all << self 
+  end 
 end 

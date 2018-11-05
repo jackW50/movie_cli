@@ -5,9 +5,7 @@ Bundler.require
 
 require "bundler/setup"
 require "./lib/movie_cli/version"
-require_relative "../lib/movie"
-require_relative "../lib/theater"
-require_relative "../lib/scraper"
+require_relative "../config/environment"
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
@@ -20,6 +18,7 @@ def reload
   load_all './lib/theater'
   load_all './lib/movie'
   load_all './lib/scraper'
+  load_all './lib/movie_cli'
 end
 
 
