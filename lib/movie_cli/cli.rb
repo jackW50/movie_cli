@@ -30,7 +30,7 @@ class MovieCli::Cli
   end 
   
   def scrape_info 
-      Scraper.new(site_interpolation)
+      MovieCli::Scraper.new(site_interpolation)
   end 
   
   def parse_info 
@@ -38,14 +38,14 @@ class MovieCli::Cli
   end 
   
   def create_theaters
-      Theater.create_from_scraper(parse_info)
+      MovieCli::Theater.create_from_scraper(parse_info)
   end 
   
   def reveal_theater_info
     puts "\n"
     puts "HERE ARE YOUR NEARBY THEATERS AND MOVIES:"
     puts "\n"
-    Theater.all.each_with_index do |theater, i|
+    MovieCli::Theater.all.each_with_index do |theater, i|
       puts "THEATER #{i + 1}"
       puts theater.name
       puts "\n"

@@ -1,5 +1,5 @@
 
-class Theater
+class MovieCli::Theater
   attr_accessor :name, :location, :movies
   
   @@all = []
@@ -14,7 +14,7 @@ class Theater
   
   def self.create_from_scraper(theater_hash)
     theater_hash.each do |key, theater_attributes|
-      Theater.new(theater_attributes).tap do |t|
+      MovieCli::Theater.new(theater_attributes).tap do |t|
         theater_attributes.each do |key, value|
           t.send(("#{key}="), value)
         end 

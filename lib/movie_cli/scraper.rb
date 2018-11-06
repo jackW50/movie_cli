@@ -2,7 +2,7 @@ require 'pry'
 require 'open-uri'
 require 'nokogiri'
 
-class Scraper
+class MovieCli::Scraper
   attr_accessor :path 
   
   def initialize(path)
@@ -52,7 +52,7 @@ class Scraper
       ""
     else 
       add_movie_strings(theater).collect do |movie|
-        Movie.new(movie[0], movie[1])
+        MovieCli::Movie.new(movie[0], movie[1])
       end 
     end 
   end 
