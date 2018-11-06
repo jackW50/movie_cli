@@ -1,10 +1,6 @@
-#require "movie_cli/version"
+require_relative "../movie_cli/version"
 
-module MovieCli
-  # Your code goes here...
-end
-
-class Movie_Cli 
+class MovieCli::Cli 
   attr_accessor :input, :site
   
   def initialize
