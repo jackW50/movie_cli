@@ -1,5 +1,4 @@
 
-
 class MovieCli::Cli 
   attr_accessor :input
   
@@ -14,7 +13,7 @@ class MovieCli::Cli
   end 
   
   def get_zip 
-    puts "What is your 5 number zip code?"
+    puts "Please enter 5 number zip code to search?"
     @input = gets.strip
   end 
   
@@ -34,26 +33,6 @@ class MovieCli::Cli
      MovieCli::Theater.create_from_scraper(scrape_info)
   end 
   
-  def reveal_theater_info
-    puts "\n"
-    puts "HERE ARE YOUR NEARBY THEATERS AND MOVIES:"
-    puts "\n"
-    MovieCli::Theater.all.each_with_index do |theater, i|
-      puts "THEATER #{i + 1}"
-      puts theater.name
-      puts "\n"
-      puts "ADDRESS and Info: #{theater.location}"
-      puts "\n"
-      puts "MOVIES & SHOWTIMES"
-      puts "\n"
-      theater.movies.each do |movie|
-        puts movie.name
-        puts movie.showtimes
-      end 
-      puts "\n\r"
-    end 
-  end 
-  
   def reveal_theater_names
     MovieCli::Theater.all.each.with_index(1) do |theater, i|
       puts "#{i}. #{theater.name}"
@@ -63,7 +42,6 @@ class MovieCli::Cli
   end 
   
   def new_feature_1
-    reveal_theater_names
     puts "Which theater's movie list would you like to see? Type its number: 1 - #{MovieCli::Theater.all.count}"
     choice = gets.strip.to_i
     if choice > 0 && choice <= MovieCli::Theater.all.count
@@ -84,10 +62,23 @@ class MovieCli::Cli
     if second_choice == "y"
       new_feature_1
     elsif second_choice == "n" 
-      puts "Okay, well have a great day!"
+      nil
     else 
       puts "I'm sorry I do not understand"
       new_feature_2
+    end 
+  end 
+  
+  def search_again?
+    puts "Would you like to search a different area? y/n"
+    decision = gets.strip.downcase 
+    if decision == "y"
+      run 
+    elsif decision == "n"
+      puts "Okay, Have a great day!"
+    else 
+      puts "I'm sorry I do not understand."
+      search_again?
     end 
   end 
   
@@ -95,7 +86,9 @@ class MovieCli::Cli
     get_zip
     if valid_zip? 
       create_theaters
+      reveal_theater_names
       new_feature_1
+      search_again?
     else 
       puts "Invalid Zip Code. Please Try Again."
       run
