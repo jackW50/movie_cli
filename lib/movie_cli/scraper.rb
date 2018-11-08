@@ -1,16 +1,18 @@
-require 'pry'
-require 'open-uri'
-require 'nokogiri'
+
 
 class MovieCli::Scraper
-  attr_accessor :path 
+  attr_accessor :zip
   
-  def initialize(path)
-    @path = path 
+  def initialize(zip)
+    @zip = zip
+  end 
+  
+  def site_interpolation
+    "http://www.movies.com/movie-times/" + "#{self.zip}-movie-times"
   end 
   
   def theater_scraper
-    html = open(path)
+    html = open(site_interpolation)
     doc = Nokogiri::HTML(html)
     doc.css("ul.theaterList li")
   end 

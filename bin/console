@@ -15,10 +15,10 @@ require_relative "../config/environment"
 # Pry.start
 
 def reload
-  load_all './lib/theater'
-  load_all './lib/movie'
-  load_all './lib/scraper'
-  load_all './lib/movie_cli'
+  load_all './lib/movie_cli/theater'
+  load_all './lib/movie_cli/movie'
+  load_all './lib/movie_cli/scraper'
+  load_all './lib/movie_cli/cli'
 end
 
 

@@ -2,7 +2,5 @@
 
 require_relative "../config/environment"
 
-user = MovieCli::Cli.new
-user.greeting
-puts "\n"
-user.run
+MovieCli::Cli.new.run
+

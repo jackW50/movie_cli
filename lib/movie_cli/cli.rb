@@ -1,10 +1,11 @@
-require_relative "../movie_cli/version"
+
 
 class MovieCli::Cli 
-  attr_accessor :input, :site
+  attr_accessor :input
   
   def initialize
-    @site = "http://www.movies.com"
+    greeting
+    puts "\n"
   end 
   
   def greeting
@@ -25,20 +26,12 @@ class MovieCli::Cli
     end
   end 
   
-  def site_interpolation(web_site = self.site, zip_code = self.input)
-      "#{web_site}" + "/movie-times/" + "#{zip_code}-movie-times"
-  end 
-  
   def scrape_info 
-      MovieCli::Scraper.new(site_interpolation)
-  end 
-  
-  def parse_info 
-      scrape_info.theater_hash
+      MovieCli::Scraper.new(input).theater_hash
   end 
   
   def create_theaters
-      MovieCli::Theater.create_from_scraper(parse_info)
+     MovieCli::Theater.create_from_scraper(scrape_info)
   end 
   
   def reveal_theater_info
@@ -61,11 +54,48 @@ class MovieCli::Cli
     end 
   end 
   
+  def reveal_theater_names
+    MovieCli::Theater.all.each.with_index(1) do |theater, i|
+      puts "#{i}. #{theater.name}"
+      puts "ADDRESS & INFO:"
+      puts theater.location
+    end 
+  end 
+  
+  def new_feature_1
+    reveal_theater_names
+    puts "Which theater's movie list would you like to see? Type its number: 1 - #{MovieCli::Theater.all.count}"
+    choice = gets.strip.to_i
+    if choice > 0 && choice <= MovieCli::Theater.all.count
+       MovieCli::Theater.find_by_index(choice).movies.each do |movie|
+         puts movie.name 
+         puts movie.showtimes 
+       end 
+       new_feature_2
+    else 
+      puts "I'm sorry, that choice is invalid."
+      new_feature_1
+    end 
+  end 
+  
+  def new_feature_2 
+    puts "would you like to see another theater? y/n"
+    second_choice = gets.strip.downcase 
+    if second_choice == "y"
+      new_feature_1
+    elsif second_choice == "n" 
+      puts "Okay, well have a great day!"
+    else 
+      puts "I'm sorry I do not understand"
+      new_feature_2
+    end 
+  end 
+  
   def run 
     get_zip
     if valid_zip? 
       create_theaters
-      reveal_theater_info
+      new_feature_1
     else 
       puts "Invalid Zip Code. Please Try Again."
       run

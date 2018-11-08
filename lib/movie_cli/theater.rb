@@ -1,6 +1,6 @@
 
 class MovieCli::Theater
-  attr_accessor :name, :location, :movies
+  attr_accessor :name, :location, :movies, :zip_code
   
   @@all = []
   
@@ -9,7 +9,7 @@ class MovieCli::Theater
   end 
   
   def self.all 
-    @@all 
+    @@all
   end 
   
   def self.create_from_scraper(theater_hash)
@@ -24,5 +24,17 @@ class MovieCli::Theater
   
   def save 
     self.class.all << self 
+  end 
+  
+  def self.find_by_zip_code(zip)
+    all.select {|theater| theater.zip == zip}
+  end 
+  
+  def self.find_by_index(index_number)
+    found = nil
+    all.each.with_index(1) do |theater, i|
+      found = theater if i == index_number 
+    end 
+    found
   end 
 end 
