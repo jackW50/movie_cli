@@ -107,7 +107,9 @@ class MovieCli::Cli
   end 
   
   def already_scraped?
-    MovieCli::Scraper.all_zips.include?(input)
+    MovieCli::Theater.all.any? do |theater|
+      theater.zip_code == input
+    end 
   end 
   
   def any_theaters?

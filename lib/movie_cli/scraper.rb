@@ -2,19 +2,8 @@
 class MovieCli::Scraper
   attr_reader :zip_code
   
-  @@zip_codes_scraped = []
-  
   def initialize(zip)
     @zip_code = zip
-    save_zip
-  end 
-  
-  def self.all_zips
-    @@zip_codes_scraped
-  end 
-  
-  def save_zip
-    self.class.all_zips << self.zip_code
   end 
   
   def site_interpolation
