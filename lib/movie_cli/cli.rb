@@ -58,7 +58,7 @@ class MovieCli::Cli
       puts movie.name 
       puts movie.showtimes 
       puts "********"
-    end 
+    end
   end 
   
   def theater_choice
@@ -66,7 +66,9 @@ class MovieCli::Cli
     puts "\n"
     puts "Which theater's movie list would you like to see? Type its number: 1 - #{MovieCli::Theater.find_by_zip_code(input).count}"
     choice = gets.strip.to_i
-    if choice > 0 && choice <= MovieCli::Theater.find_by_zip_code(input).count
+    if MovieCli::Theater.find_by_zip_code(input).count == 0 
+      puts "I'm sorry it looks like there are no Theaters in this area."
+    elsif choice > 0 && choice <= MovieCli::Theater.find_by_zip_code(input).count
        reveal_theater_movies(choice)
        another_theater?
     else 
@@ -95,6 +97,7 @@ class MovieCli::Cli
     puts "Would you like to search a different area? y/n"
     decision = gets.strip.downcase 
     if decision == "y"
+      puts "\n"
       run 
     elsif decision == "n"
       puts "Okay, Have a great day!"
@@ -116,9 +119,14 @@ class MovieCli::Cli
       search_again?
     elsif valid_zip? && !already_scraped?
       create_theaters
-      reveal_from_zip_code
-      theater_choice
-      search_again?
+      if MovieCli::Theater.find_by_zip_code(input).count == 0
+        puts "I'm sorry it looks like there are no theaters in this area."
+        search_again?
+      else
+        reveal_from_zip_code
+        theater_choice
+        search_again?
+      end 
     else 
       puts "Invalid Zip Code. Please Try Again."
       run
