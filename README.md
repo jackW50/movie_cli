@@ -25,7 +25,7 @@ First change into the directory.
 
     $ cd movie_cli 
     
-Then run the file by typing into console:
+Then run the program by typing into console:
 
     $ ./bin/run
 
