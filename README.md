@@ -1,6 +1,6 @@
 # MovieCli
 
-This gem scrapes a movie website and returns to the user movies and showtimes in their area.
+This gem scrapes a movie website using a zip code provided by the user. The program returns to the user theaters and then returns movies from a theater of their choice.
 
 
 ## Installation
