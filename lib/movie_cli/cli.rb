@@ -4,12 +4,12 @@ class MovieCli::Cli
   
   def initialize
     greeting
-    puts "\n"
   end 
   
   def greeting
     puts "Hello! Sounds like you want to see a movie."
     puts "Let's see if we can help."
+    puts "\n"
   end 
   
   def get_zip 
