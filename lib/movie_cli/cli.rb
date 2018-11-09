@@ -41,14 +41,18 @@ class MovieCli::Cli
     end 
   end 
   
+  def reveal_theater_movies(index)
+    MovieCli::Theater.find_by_index(index, MovieCli::Theater.find_by_zip_code(input)).movies.each do |movie|
+      puts movie.name 
+      puts movie.showtimes 
+    end 
+  end 
+  
   def theater_choice
     puts "Which theater's movie list would you like to see? Type its number: 1 - #{MovieCli::Theater.find_by_zip_code(input).count}"
     choice = gets.strip.to_i
     if choice > 0 && choice <= MovieCli::Theater.find_by_zip_code(input).count
-       MovieCli::Theater.find_by_index(choice, MovieCli::Theater.find_by_zip_code(input)).movies.each do |movie|
-         puts movie.name 
-         puts movie.showtimes 
-       end 
+       reveal_theater_movies(choice)
        another_theater?
     else 
       puts "I'm sorry, that choice is invalid."
@@ -85,14 +89,6 @@ class MovieCli::Cli
   
   def already_scraped?
     MovieCli::Scraper.all_zips.include?(input)
-  end 
-  
-  def repeat_reveal_from_memory
-    MovieCli::Theater.find_by_zip(input).each.with_index(1) do |theater, i|
-      puts "#{i}. #{theater.name}"
-      puts "ADDRESS and INFO:"
-      puts theater.location
-    end 
   end 
   
   def run 

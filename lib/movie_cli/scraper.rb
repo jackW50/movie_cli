@@ -1,5 +1,4 @@
 
-
 class MovieCli::Scraper
   attr_reader :zip_code
   
@@ -39,7 +38,7 @@ class MovieCli::Scraper
       value.delete_if {|key, value| value == ""}
     end 
     theaters.delete_if {|key, value| value == {}} 
-    theaters.each {|key, value| value["zip_code"] = zip_code }
+    theaters.each {|key, value| value["zip_code"] = zip_code}
     theaters
   end 
   
