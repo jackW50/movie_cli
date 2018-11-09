@@ -26,14 +26,6 @@ class MovieCli::Theater
     all.select {|theater| theater.zip_code == zip_code }
   end 
   
-  def self.find_by_index(index_number, array)
-    found = nil
-    array.each.with_index(1) do |theater, i|
-      found = theater if i == index_number 
-   end 
-    found
-  end 
-  
   def save 
     self.class.all << self 
   end 
