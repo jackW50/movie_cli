@@ -33,12 +33,16 @@ class MovieCli::Cli
      MovieCli::Theater.create_from_scraper(scrape_info)
   end 
   
+  def theater_array 
+    MovieCli::Theater.find_by_zip_code(input)
+  end 
+  
   def reveal_from_zip_code
     puts "-----------"
     puts "\n"
     puts "HERE ARE THE NEARBY THEATERS:"
     puts "********"
-    MovieCli::Theater.find_by_zip_code(input).each.with_index(1) do |theater, i|
+    theater_array.each.with_index(1) do |theater, i|
       puts "#{i}. #{theater.name}"
       puts "\n"
       puts "ADDRESS and INFO:"
@@ -54,19 +58,27 @@ class MovieCli::Cli
     puts "-----------"
     puts "HERE ARE THIS THEATERS MOVIES & SHOWTIMES:"
     puts "********"
-    MovieCli::Theater.find_by_index(index, MovieCli::Theater.find_by_zip_code(input)).movies.each do |movie|
+    find_by_index(index).movies.each do |movie|
       puts movie.name 
       puts movie.showtimes 
       puts "********"
     end
   end 
   
+  def find_by_index(index)
+    found = nil 
+    theater_array.each.with_index(1) do |theater, i|
+      found = theater if i == index
+    end 
+    found
+  end 
+  
   def theater_choice
     puts "-----------"
     puts "\n"
-    puts "Which theater's movie list would you like to see? Type its number: 1 - #{MovieCli::Theater.find_by_zip_code(input).count}"
+    puts "Which theater's movie list would you like to see? Type its number: 1 - #{theater_array.count}"
     choice = gets.strip.to_i
-    if choice > 0 && choice <= MovieCli::Theater.find_by_zip_code(input).count
+    if choice > 0 && choice <= theater_array.count
        reveal_theater_movies(choice)
        another_theater?
     else 
@@ -113,7 +125,7 @@ class MovieCli::Cli
   end 
   
   def any_theaters?
-    if MovieCli::Theater.find_by_zip_code(input).count > 0
+    if theater_array.count > 0
       true 
     else 
       nil 
