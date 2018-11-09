@@ -1,14 +1,25 @@
 
 
 class MovieCli::Scraper
-  attr_accessor :zip
+  attr_reader :zip_code
+  
+  @@zip_codes_scraped = []
   
   def initialize(zip)
-    @zip = zip
+    @zip_code = zip
+    save_zip
+  end 
+  
+  def self.all_zips
+    @@zip_codes_scraped
+  end 
+  
+  def save_zip
+    self.class.all_zips << self.zip
   end 
   
   def site_interpolation
-    "http://www.movies.com/movie-times/" + "#{self.zip}-movie-times"
+    "http://www.movies.com/movie-times/" + "#{self.zip_code}-movie-times"
   end 
   
   def theater_scraper
