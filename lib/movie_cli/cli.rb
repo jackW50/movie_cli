@@ -34,21 +34,36 @@ class MovieCli::Cli
   end 
   
   def reveal_from_zip_code
+    puts "-----------"
+    puts "\n"
+    puts "HERE ARE THE NEARBY THEATERS:"
+    puts "********"
     MovieCli::Theater.find_by_zip_code(input).each.with_index(1) do |theater, i|
       puts "#{i}. #{theater.name}"
+      puts "\n"
       puts "ADDRESS and INFO:"
       puts theater.location
+      puts "\n"
+      puts "********"
+      puts "\n"
     end 
   end 
   
   def reveal_theater_movies(index)
+    puts "\n"
+    puts "-----------"
+    puts "HERE ARE THIS THEATERS MOVIES & SHOWTIMES:"
+    puts "********"
     MovieCli::Theater.find_by_index(index, MovieCli::Theater.find_by_zip_code(input)).movies.each do |movie|
       puts movie.name 
       puts movie.showtimes 
+      puts "********"
     end 
   end 
   
   def theater_choice
+    puts "-----------"
+    puts "\n"
     puts "Which theater's movie list would you like to see? Type its number: 1 - #{MovieCli::Theater.find_by_zip_code(input).count}"
     choice = gets.strip.to_i
     if choice > 0 && choice <= MovieCli::Theater.find_by_zip_code(input).count
@@ -61,6 +76,7 @@ class MovieCli::Cli
   end 
   
   def another_theater? 
+    puts "\n"
     puts "would you like to see another theater? y/n"
     second_choice = gets.strip.downcase 
     if second_choice == "y"
@@ -75,6 +91,7 @@ class MovieCli::Cli
   end 
   
   def search_again?
+    puts "\n"
     puts "Would you like to search a different area? y/n"
     decision = gets.strip.downcase 
     if decision == "y"
