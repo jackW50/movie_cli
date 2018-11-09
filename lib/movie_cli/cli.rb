@@ -37,6 +37,10 @@ class MovieCli::Cli
     MovieCli::Theater.find_by_zip_code(input)
   end 
   
+  def all_theaters
+    MovieCli::Theater.all
+  end 
+  
   def reveal_from_zip_code
     puts "-----------"
     puts "\n"
@@ -119,7 +123,7 @@ class MovieCli::Cli
   end 
   
   def already_scraped?
-    MovieCli::Theater.all.any? do |theater|
+    all_theaters.any? do |theater|
       theater.zip_code == input
     end 
   end 
