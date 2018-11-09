@@ -21,7 +21,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+First change into the directory.
+
+    $ cd movie_cli 
+    
+Then run the file by typing into console:
+
+    $ ./bin/run
+
+$ worlds-best-restaurants
 
 ## Development
 
