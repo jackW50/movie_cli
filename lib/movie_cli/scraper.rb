@@ -15,7 +15,7 @@ class MovieCli::Scraper
   end 
   
   def save_zip
-    self.class.all_zips << self.zip
+    self.class.all_zips << self.zip_code
   end 
   
   def site_interpolation
@@ -38,7 +38,9 @@ class MovieCli::Scraper
     theaters.each do |key, value|
       value.delete_if {|key, value| value == ""}
     end 
-    theaters.delete_if {|key, value| value == {}}
+    theaters.delete_if {|key, value| value == {}} 
+    theaters.each {|key, value| value["zip_code"] = zip_code }
+    theaters
   end 
   
   def parse_movies(theater)

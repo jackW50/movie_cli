@@ -26,8 +26,8 @@ class MovieCli::Theater
     self.class.all << self 
   end 
   
-  def self.find_by_zip_code(zip)
-    all.select {|theater| theater.zip == zip}
+  def self.find_by_zip_code(zip_code)
+    all.select {|theater| theater.zip_code == zip_code }
   end 
   
   def self.find_by_index(index_number)
