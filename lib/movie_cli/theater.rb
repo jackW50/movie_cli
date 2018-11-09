@@ -30,11 +30,11 @@ class MovieCli::Theater
     all.select {|theater| theater.zip_code == zip_code }
   end 
   
-  def self.find_by_index(index_number)
+  def self.find_by_index(index_number, array)
     found = nil
-    all.each.with_index(1) do |theater, i|
+    array.each.with_index(1) do |theater, i|
       found = theater if i == index_number 
-    end 
+   end 
     found
   end 
 end 
