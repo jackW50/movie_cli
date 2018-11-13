@@ -38,7 +38,7 @@ class MovieCli::Scraper
   end 
   
   def add_movie_strings(theater)
-    if parse_movies(theater) == [] || nil 
+    if parse_movies(theater) == [] || parse_movies(theater) == nil 
       ""
     else 
       movie_and_times_array = parse_movies(theater).delete_if {|x| x == "***"}.collect {|x| x.split("***")}

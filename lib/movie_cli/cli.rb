@@ -60,21 +60,13 @@ class MovieCli::Cli
   def reveal_theater_movies(index)
     puts "\n"
     puts "-----------"
-    puts "HERE ARE THIS THEATERS MOVIES & SHOWTIMES:"
+    puts "HERE ARE THE #{theater_array[index-1].name.upcase} MOVIES & SHOWTIMES:"
     puts "********"
-    find_by_index(index).movies.each do |movie|
+    theater_array[index-1].movies.each do |movie|
       puts movie.name 
       puts movie.showtimes 
       puts "********"
     end
-  end 
-  
-  def find_by_index(index)
-    found = nil 
-    theater_array.each.with_index(1) do |theater, i|
-      found = theater if i == index
-    end 
-    found
   end 
   
   def theater_choice
@@ -129,11 +121,7 @@ class MovieCli::Cli
   end 
   
   def any_theaters?
-    if theater_array.count > 0
-      true 
-    else 
-      nil 
-    end 
+    theater_array.count > 0 ? true : nil 
   end 
   
   def run 
